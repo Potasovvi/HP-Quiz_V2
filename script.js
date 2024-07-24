@@ -1,4 +1,3 @@
-script.js
 const secondoFilmQuestions = [
 {
 question: "Qual è il titolo del secondo film di Harry Potter?",
