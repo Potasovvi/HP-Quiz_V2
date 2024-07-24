@@ -205,10 +205,54 @@ answer: "Grawp"
 }
 ];
 function loadQuiz(questions) {
-const quizContainer = document.getElementById('quiz');
-quizContainer.innerHTML = '';
-questions.forEach((q, index) => {
-const questionElement = document.createElement('div');
-questionElement.classList.add('question');
-const questionText = document.createElement('h2');
-question
+    const quizContainer = document.getElementById('quiz');
+    quizContainer.innerHTML = '';
+    
+    questions.forEach((q, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('question');
+        
+        const questionText = document.createElement('h2');
+        questionText.textContent = `${index + 1}. ${q.question}`;
+        questionElement.appendChild(questionText);
+        
+        q.options.forEach(option => {
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = `question${index}`;
+            input.value = option;
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(option));
+            questionElement.appendChild(label);
+        });
+        
+        quizContainer.appendChild(questionElement);
+    });
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.onclick = () => calculateScore(questions);
+}
+
+function calculateScore(questions) {
+    let score = 0;
+
+    questions.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selectedOption && selectedOption.value === q.answer) {
+            score++;
+        }
+    });
+
+    const resultContainer = document.getElementById('result');
+    resultContainer.textContent = `Hai ottenuto un punteggio di ${score} su ${questions.length}`;
+}
+
+// Caricare il quiz specifico quando il documento è pronto
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.pathname.includes('secondo-film.html')) {
+        loadQuiz(secondoFilmQuestions);
+    } else if (window.location.pathname.includes('quinto-film.html')) {
+        loadQuiz(quintoFilmQuestions);
+    }
+});
