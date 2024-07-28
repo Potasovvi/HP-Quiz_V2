@@ -182,12 +182,28 @@
             const objectStore = transaction.objectStore('Partecipanti');
             const index = objectStore.index('nome');
             const getRequest = index.get(nome);
-           
+
+            getRequest.onsuccess = function(event) {
+                const participant = event.target.result;
+                if (participant && participant.cognome === cognome) {
+                    participant.completato = true;
+                    const updateRequest = objectStore.put(participant);
+
+                    updateRequest.onsuccess = function() {
+                        alert('Quiz inviato con successo.');
+                        window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html'; // Reindirizza a una pagina di ringraziamento
+                    };
+
+                    updateRequest.onerror = function(event) {
+                        console.error('Errore nell\'aggiornamento dei dati:', event.target.errorCode);
+                    };
+                }
+            };
+            
             index.openCursor().onsuccess = function(event) {
             const cursor = event.target.result;
             if (cursor) {
                 if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
-                    participant.completato = true;
                     const updateData = cursor.value;
                     updateData.punteggio = punteggio;
                     const requestUpdate = cursor.update(updateData);
