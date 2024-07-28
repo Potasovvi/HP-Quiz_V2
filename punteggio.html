@@ -21,6 +21,9 @@
         th {
             background-color: #f4f4f4;
         }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -31,8 +34,7 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Punteggio</th>              
-                <!-- Aggiungi altre colonne se necessario -->
+                <th>Punteggio</th>
             </tr>
         </thead>
         <tbody>
@@ -42,19 +44,25 @@
 
     <script>
         // Apri il database IndexedDB
-        const request = indexedDB.open("PartecipantiDB", 1);
+        const request = indexedDB.open('PartecipantiDB', 1);
 
-        request.onerror = function(event) {
-            console.error("Errore nell'apertura del database:", event.target.errorCode);
+        request.onupgradeneeded = function(event) {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('Partecipanti')) {
+                const objectStore = db.createObjectStore('Partecipanti', { keyPath: 'id', autoIncrement: true });
+                objectStore.createIndex('nome', 'nome', { unique: false });
+                objectStore.createIndex('cognome', 'cognome', { unique: false });
+                objectStore.createIndex('punteggio', 'punteggio', { unique: false });
+            }
         };
 
         request.onsuccess = function(event) {
             const db = event.target.result;
-            const transaction = db.transaction(["partecipanti"], "readonly");
-            const objectStore = transaction.objectStore("partecipanti");
-            const tableBody = document.querySelector("#participantsTable tbody");
+            const transaction = db.transaction(['Partecipanti'], 'readonly');
+            const objectStore = transaction.objectStore('Partecipanti');
+            const tableBody = document.querySelector('#participantsTable tbody');
 
-            // Recupera tutti i dati dal database
+            // Recupera tutti i dati dall'object store
             const getAllRequest = objectStore.getAll();
 
             getAllRequest.onsuccess = function(event) {
@@ -65,19 +73,19 @@
 
                 // Aggiungi i dati alla tabella
                 participants.forEach(participant => {
-                    const row = document.createElement("tr");
-                    const idCell = document.createElement("td");
-                    const nameCell = document.createElement("td");
-                    const cognomeCell = document.createElement("td");
-                    const punteggioCell = document.createElement("td");
+                    const row = document.createElement('tr');
+                    const idCell = document.createElement('td');
+                    const nomeCell = document.createElement('td');
+                    const cognomeCell = document.createElement('td');
+                    const punteggioCell = document.createElement('td');
 
-                    idCell.textContent = participant.id; // Modifica questi nomi in base ai tuoi dati
-                    nameCell.textContent = participant.nome;
-                    cognomeCell.textContent = participant.cognome;
-                    punteggioCell.textContent = participant.punteggio;
+                    idCell.textContent = participant.id || 'N/A';
+                    nomeCell.textContent = participant.nome || 'N/A';
+                    cognomeCell.textContent = participant.cognome || 'N/A';
+                    punteggioCell.textContent = participant.punteggio || 'N/A';
 
                     row.appendChild(idCell);
-                    row.appendChild(nameCell);
+                    row.appendChild(nomeCell);
                     row.appendChild(cognomeCell);
                     row.appendChild(punteggioCell);
 
@@ -86,8 +94,12 @@
             };
 
             getAllRequest.onerror = function(event) {
-                console.error("Errore nel recupero dei dati:", event.target.errorCode);
+                console.error('Errore nel recupero dei dati:', event.target.errorCode);
             };
+        };
+
+        request.onerror = function(event) {
+            console.error('Errore nell\'apertura del database:', event.target.errorCode);
         };
     </script>
 </body>
