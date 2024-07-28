@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizza Partecipanti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Elenco dei Partecipanti</h1>
+    <table id="participantsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Punteggio</th>              
+                <!-- Aggiungi altre colonne se necessario -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- I dati verranno inseriti qui tramite JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Apri il database IndexedDB
+        const request = indexedDB.open("PartecipantiDB", 1);
+
+        request.onerror = function(event) {
+            console.error("Errore nell'apertura del database:", event.target.errorCode);
+        };
+
+        request.onsuccess = function(event) {
+            const db = event.target.result;
+            const transaction = db.transaction(["partecipanti"], "readonly");
+            const objectStore = transaction.objectStore("partecipanti");
+            const tableBody = document.querySelector("#participantsTable tbody");
+
+            // Recupera tutti i dati dal database
+            const getAllRequest = objectStore.getAll();
+
+            getAllRequest.onsuccess = function(event) {
+                const participants = event.target.result;
+
+                // Pulisci la tabella esistente
+                tableBody.innerHTML = "";
+
+                // Aggiungi i dati alla tabella
+                participants.forEach(participant => {
+                    const row = document.createElement("tr");
+                    const idCell = document.createElement("td");
+                    const nameCell = document.createElement("td");
+                    const cognomeCell = document.createElement("td");
+                    const punteggioCell = document.createElement("td");
+
+                    idCell.textContent = participant.id; // Modifica questi nomi in base ai tuoi dati
+                    nameCell.textContent = participant.nome;
+                    cognomeCell.textContent = participant.cognome;
+                    punteggioCell.textContent = participant.punteggio;
+
+                    row.appendChild(idCell);
+                    row.appendChild(nameCell);
+                    row.appendChild(cognomeCell);
+                    row.appendChild(punteggioCell);
+
+                    tableBody.appendChild(row);
+                });
+            };
+
+            getAllRequest.onerror = function(event) {
+                console.error("Errore nel recupero dei dati:", event.target.errorCode);
+            };
+        };
+    </script>
+</body>
+</html>
