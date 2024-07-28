@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <form id="quizForm">
+        <p>Domanda 1: Qual è la capitale d'Italia?</p>
+        <input type="radio" id="roma" name="q1" value="Roma" required>
+        <label for="roma">Roma</label><br>
+        <input type="radio" id="milano" name="q1" value="Milano">
+        <label for="milano">Milano</label><br>
+        <input type="radio" id="napoli" name="q1" value="Napoli">
+        <label for="napoli">Napoli</label><br>
+
+        <p>Domanda 2: Qual è la capitale della Francia?</p>
+        <input type="radio" id="parigi" name="q2" value="Parigi" required>
+        <label for="parigi">Parigi</label><br>
+        <input type="radio" id="marsiglia" name="q2" value="Marsiglia">
+        <label for="marsiglia">Marsiglia</label><br>
+        <input type="radio" id="lione" name="q2" value="Lione">
+        <label for="lione">Lione</label><br>
+
+        <p>Domanda 3: Scrivi una parola in italiano</p>
+        <input type="text" id="q3" name="q3" required><br><br>
+
+        <p>Domanda 4: Scrivi una parola in francese</p>
+        <input type="text" id="q4" name="q4" required><br><br>
+
+        <button type="submit">Invia</button>
+    </form>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nome = urlParams.get('nome');
+        const cognome = urlParams.get('cognome');
+
+        const request = indexedDB.open('PartecipantiDB', 1);
+        let db;
+
+        request.onsuccess = function(event) {
+            db = event.target.result;
+        };
+
+        request.onerror = function(event) {
+            console.error('Database error:', event.target.errorCode);
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let punteggio = 0;
+
+            if (document.querySelector('input[name="q1"]:checked').value === 'Roma') punteggio += 1;
+            if (document.querySelector('input[name="q2"]:checked').value === 'Parigi') punteggio += 1;
+            if (document.getElementById('q3').value.trim().length > 0) punteggio += 1;
+            if (document.getElementById('q4').value.trim().length > 0) punteggio += 1;
+
+            const transaction = db.transaction(['Partecipanti'], 'readwrite');
+            const objectStore = transaction.objectStore('Partecipanti');
+            const index = objectStore.index('nome');
+
+            index.openCursor().onsuccess = function(event) {
+                const cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
+                        const updateData = cursor.value;
+                        updateData.punteggio = punteggio;
+                        const requestUpdate = cursor.update(updateData);
+
+                        requestUpdate.onsuccess = function() {
+                            alert(`Quiz completato! Il tuo punteggio è ${punteggio}.`);
+                        };
+
+                        requestUpdate.onerror = function(event) {
+                            console.error('Update error:', event.target.errorCode);
+                        };
+
+                        return;
+                    }
+                    cursor.continue();
+                }
+            };
+        });
+    </script>
+</body>
+</html>
