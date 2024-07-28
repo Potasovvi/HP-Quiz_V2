@@ -1,58 +1,52 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+    padding: 20px;
 }
-
-h1 {
-    color: #4CAF50;
-}
-
-form {
+.quiz-selection-container {
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 600px;
-    margin: 20px;
+    margin: 0 auto;
+    text-align: center;
 }
-
-label {
+.quiz-link {
     display: block;
-    margin: 10px 0 5px;
-    color: #333;
-}
-
-input[type="text"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 20px;
+    border: 2px solid #4CAF50;
     border-radius: 5px;
-    box-sizing: border-box;
+    padding: 10px;
 }
-
-input[type="radio"] {
-    margin-right: 10px;
+.quiz-link:hover {
+    background-color: #4CAF50;
+    color: white;
 }
-
+.quiz-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+.question {
+    margin-bottom: 20px;
+}
 button {
     background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
     font-size: 16px;
-    margin-top: 20px;
-}
-
-button:hover {
-    background-color: #45a049;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
 }
