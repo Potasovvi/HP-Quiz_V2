@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione</title>
+</head>
+<body>
+    <h1>Registrazione</h1>
+    <form id="registrationForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome" required><br><br>
+        <button type="submit">Salva</button>
+    </form>
+
+    <script>
+        const request = indexedDB.open('PartecipantiDB', 1);
+        let db;
+
+        request.onupgradeneeded = function(event) {
+            db = event.target.result;
+            const objectStore = db.createObjectStore('Partecipanti', { keyPath: 'id', autoIncrement: true });
+            objectStore.createIndex('nome', 'nome', { unique: false });
+            objectStore.createIndex('cognome', 'cognome', { unique: false });
+            objectStore.createIndex('punteggio', 'punteggio', { unique: false });
+        };
+
+        request.onsuccess = function(event) {
+            db = event.target.result;
+        };
+
+        request.onerror = function(event) {
+            console.error('Database error:', event.target.errorCode);
+        };
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
+
+            const transaction = db.transaction(['Partecipanti'], 'readwrite');
+            const objectStore = transaction.objectStore('Partecipanti');
+            const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
+
+            const request = objectStore.add(newUser);
+
+            request.onsuccess = function() {
+                window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+            };
+
+            request.onerror = function(event) {
+                console.error('Add error:', event.target.errorCode);
+            };
+        });
+    </script>
+</body>
+</html>
