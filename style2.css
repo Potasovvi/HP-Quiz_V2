@@ -1,9 +1,10 @@
+@font-face {
+    font-family: 'HarryP';
+    src: url('fonts/HarryP.ttf') format('truetype');
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
+    font-family: 'HarryP', Arial, sans-serif;
 }
 
 header {
