@@ -127,22 +127,25 @@
             const index = objectStore.index('nome');
 
             index.openCursor().onsuccess = function(event) {
-                const cursor = event.target.result;
-                if (cursor) {
-                    if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
-                        const updateData = cursor.value;
-                        updateData.punteggio = punteggio;
-                        const requestUpdate = cursor.update(updateData);
+            const cursor = event.target.result;
+            if (cursor) {
+                if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
+                    const updateData = cursor.value;
+                    updateData.punteggio = punteggio;
+                    const requestUpdate = cursor.update(updateData);
 
-                        requestUpdate.onsuccess = function() {
-                            alert(`Quiz completato! Il tuo punteggio è ${punteggio}.`);
-                        };
+                    requestUpdate.onsuccess = function() {
+                    alert(`Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.`);
+                    setTimeout(function() {
+                        window.location.href = 'ringraziamenti.html';
+                    }, 2000); // 2 secondi di attesa prima di reindirizzare
+                };
 
-                        requestUpdate.onerror = function(event) {
-                            console.error('Update error:', event.target.errorCode);
-                        };
+                    requestUpdate.onerror = function(event) {
+                    console.error('Update error:', event.target.errorCode);
+                };
 
-                        return;
+                return;
                     }
                     cursor.continue();
                 }
