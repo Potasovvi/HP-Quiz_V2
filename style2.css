@@ -1,3 +1,4 @@
+/* Stile del body */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #e0f7fa;
@@ -10,25 +11,29 @@ body {
     text-align: center;
 }
 
+/* Stile dell'intestazione h1 */
 h1 {
     color: #00796b;
 }
 
+/* Stile del form */
 form {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 600px;
-    margin: 20px;
+    margin: 20px auto; /* Centra il form orizzontalmente */
 }
 
+/* Stile delle etichette dei campi di input */
 label {
     display: block;
     margin: 15px 0 5px;
     color: #00796b;
 }
 
+/* Stile degli input di tipo testo */
 input[type="text"] {
     width: calc(100% - 20px);
     padding: 10px;
@@ -38,10 +43,7 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
-input[type="radio"] {
-    margin-right: 10px;
-}
-
+/* Stile dei pulsanti */
 button {
     background-color: #00796b;
     color: white;
@@ -53,12 +55,17 @@ button {
     margin-top: 20px;
 }
 
+/* Stile del pulsante al passaggio del mouse */
 button:hover {
     background-color: #004d40;
 }
 
+/* Stile del contenitore (se necessario) */
 .container {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 20px auto; /* Centra il contenitore orizzontalmente */
+}
