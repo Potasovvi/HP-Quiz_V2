@@ -1,7 +1,8 @@
 /* Stile del body */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #e0f7fa;
+    background-image: url('harry_potter_background.jpg'); /* Immagine di sfondo di Harry Potter */
+    background-size: cover;
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,7 +14,9 @@ body {
 
 /* Stile dell'intestazione h1 */
 h1 {
-    color: #00796b;
+    color: #d4af37; /* Colore dorato per l'effetto pergamena */
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombra leggera */
 }
 
 /* Stile del form */
