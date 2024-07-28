@@ -111,56 +111,22 @@
 
         <button type="submit">Invia</button>
     </form>
-     <p id="statusMessage"></p>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const nome = urlParams.get('nome');
         const cognome = urlParams.get('cognome');
 
-        if (!nome || !cognome) {
-            alert('Nome e cognome non forniti.');
-            window.location.href = 'index.html'; // Reindirizza a una pagina di errore o alla home
-        }
-        
         const request = indexedDB.open('PartecipantiDB', 1);
         let db;
 
-        request.onupgradeneeded = function(event) {
-            const db = event.target.result;
-            if (!db.objectStoreNames.contains('Partecipanti')) {
-                const objectStore = db.createObjectStore('Partecipanti', { keyPath: 'id', autoIncrement: true });
-                objectStore.createIndex('nome', 'nome', { unique: false });
-                objectStore.createIndex('cognome', 'cognome', { unique: false });
-                objectStore.createIndex('punteggio', 'punteggio', { unique: false });
-                objectStore.createIndex('completato', 'completato', { unique: false }); // Aggiungi il flag completato
-            }
-        };
-
         request.onsuccess = function(event) {
             db = event.target.result;
-            checkCompletionStatus();
         };
 
         request.onerror = function(event) {
             console.error('Database error:', event.target.errorCode);
         };
-
-        function checkCompletionStatus() {
-            const transaction = db.transaction(['Partecipanti'], 'readonly');
-            const objectStore = transaction.objectStore('Partecipanti');
-            const index = objectStore.index('nome');
-            const getRequest = index.get(nome);
-
-            getRequest.onsuccess = function(event) {
-                const participant = event.target.result;
-                if (participant && participant.cognome === cognome) {
-                    if (participant.completato) {
-                        document.getElementById('quizForm').style.display = 'none';
-                        document.getElementById('statusMessage').textContent = 'Hai già completato il quiz.';
-                    }
-                }
-            };
 
         document.getElementById('quizForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -181,26 +147,21 @@
             const transaction = db.transaction(['Partecipanti'], 'readwrite');
             const objectStore = transaction.objectStore('Partecipanti');
             const index = objectStore.index('nome');
-            const getRequest = index.get(nome);
 
-            getRequest.onsuccess = function(event) {
-                const participant = event.target.result;
-                if (participant && participant.cognome === cognome) {
-                    participant.completato = true;
-                    const updateRequest = objectStore.put(participant);
+            index.openCursor().onsuccess = function(event) {
+            const cursor = event.target.result;
+            if (cursor) {
+                if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
+                    const updateData = cursor.value;
+                    updateData.punteggio = punteggio;
+                    const requestUpdate = cursor.update(updateData);
 
-                    updateRequest.onsuccess = function() {
-                        updateData.punteggio = punteggio;
-                        alert('Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.');
-                        window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html'; // Reindirizza a una pagina di ringraziamento
-                    };
-
-                    updateRequest.onerror = function(event) {
-                        console.error('Errore nell\'aggiornamento dei dati:', event.target.errorCode);
-                    };
-                }
-            };
-                      
+                    requestUpdate.onsuccess = function() {
+                    alert(`Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.`);
+                    setTimeout(function() {
+                        window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html';
+                    }, 2000); // 2 secondi di attesa prima di reindirizzare
+                };
 
                     requestUpdate.onerror = function(event) {
                     console.error('Update error:', event.target.errorCode);
