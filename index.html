@@ -27,6 +27,7 @@
             objectStore.createIndex('nome', 'nome', { unique: false });
             objectStore.createIndex('cognome', 'cognome', { unique: false });
             objectStore.createIndex('punteggio', 'punteggio', { unique: false });
+            objectStore.createIndex('completato', 'completato', { unique: false }); // Aggiungi l'indice per il flag completato
         };
 
         request.onsuccess = function(event) {
