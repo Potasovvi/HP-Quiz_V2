@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'HarryP';
-    src: url('HARRYP__.ttf') format('truetype');
+    src: url('HARRYP__.ttf') format('truetype'); /* Assicurati che questo percorso sia corretto */
 }
 
 body {
-    font-family: 'HarryP', Arial, sans-serif;
+    font-family: 'HarryP', Arial, sans-serif; /* Applica il font HarryP al corpo della pagina */
 }
 
 header {
@@ -29,6 +29,7 @@ header {
 }
 
 .question {
+    font-family: 'HarryP', Arial, sans-serif; /* Applica il font HarryP alle domande */
     font-size: 1.2em;
     margin-bottom: 20px;
 }
