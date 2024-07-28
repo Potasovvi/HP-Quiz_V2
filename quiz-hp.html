@@ -190,7 +190,8 @@
                     const updateRequest = objectStore.put(participant);
 
                     updateRequest.onsuccess = function() {
-                        alert('Quiz inviato con successo.');
+                        updateData.punteggio = punteggio;
+                        alert('Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.');
                         window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html'; // Reindirizza a una pagina di ringraziamento
                     };
 
@@ -199,21 +200,7 @@
                     };
                 }
             };
-            
-            index.openCursor().onsuccess = function(event) {
-            const cursor = event.target.result;
-            if (cursor) {
-                if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
-                    const updateData = cursor.value;
-                    updateData.punteggio = punteggio;
-                    const requestUpdate = cursor.update(updateData);
-
-                    requestUpdate.onsuccess = function() {
-                    alert(`Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.`);
-                    setTimeout(function() {
-                        window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html';
-                    }, 200); // 200 ms secondi di attesa prima di reindirizzare
-                };
+                      
 
                     requestUpdate.onerror = function(event) {
                     console.error('Update error:', event.target.errorCode);
