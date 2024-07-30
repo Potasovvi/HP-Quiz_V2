@@ -10,20 +10,25 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url('Hogwarts.jpg') no-repeat center center fixed;
+            background: url('Hogwarts.jpg') no-repeat center center;
             background-size: cover;
             color: #fff; /* Testo bianco per contrastare con lo sfondo */
             text-align: center;
         }
+        h1, p {
+            background-color: rgba(0, 0, 0, 0.5); /* Sfondo semitrasparente per il testo */
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            width: 80%;
+        }
         h1 {
-            margin: 20px 0;
             font-size: 2em;
         }
         p {
-            margin: 10px 0;
             font-size: 1.2em;
         }
     </style>
