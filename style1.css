@@ -7,7 +7,7 @@ body {
     font-family: 'HarryP', Arial, sans-serif; /* Applica il font HarryP al corpo della pagina */
     margin: 0;
     padding: 0;
-    background-image: url('Harry_Bellatrix.jpg'); /* Percorso dell'immagine di sfondo */
+    background-image: url('path/to/your/background-image.jpg'); /* Percorso dell'immagine di sfondo */
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -33,16 +33,24 @@ label, input {
     margin: 10px 0;
 }
 
+input[type="text"] {
+    padding: 10px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 15px 30px; /* Aumenta la dimensione del bottone */
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1em;
-    margin: 4px 2px;
+    font-size: 1.5em; /* Aumenta la dimensione del testo del bottone */
+    margin: 20px auto; /* Centra il bottone */
     cursor: pointer;
     border-radius: 5px;
 }
