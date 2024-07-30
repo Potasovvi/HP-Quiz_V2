@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'HarryP';
+    src: url('HARRYP.ttf') format('truetype'); /* Assicurati che questo percorso sia corretto */
+}
+
+body {
+    font-family: 'HarryP', Arial, sans-serif; /* Applica il font HarryP al corpo della pagina */
+    margin: 0;
+    padding: 0;
+    background-image: url('Harry_Bellatrix.jpg'); /* Percorso dell'immagine di sfondo */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff; /* Colore del testo bianco per risaltare sullo sfondo scuro */
+}
+
+.form-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Sfondo semi-trasparente per leggibilità */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+label, input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
