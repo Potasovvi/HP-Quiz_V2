@@ -39,21 +39,29 @@
     <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>
 
     <script>
-    // Funzione per gestire il comportamento del tasto indietro
+    // Aggiunge una voce falsa alla cronologia
+    function addFakeHistoryEntry() {
+        history.replaceState(null, '', location.href);
+        // Aggiunge una voce di stato 'finta' alla cronologia
+        history.pushState(null, '', location.href);
+    }
+
+    // Funzione per gestire la navigazione indietro
     function handleBackButton() {
-        // Aggiungi un listener per l'evento pageshow
-        window.addEventListener('pageshow', function(event) {
-            // Controlla se l'evento è stato scatenato dalla navigazione indietro
-            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-                // Reindirizza l'utente alla stessa pagina
-                window.location.reload();
-            }
+        // Quando l'utente naviga indietro, reindirizza alla pagina corrente
+        window.addEventListener('popstate', function() {
+            // Usa history.go(1) per forzare un avanzamento nella cronologia
+            history.go(1);
         });
     }
 
-    // Chiama la funzione quando il documento è pronto
-    document.addEventListener('DOMContentLoaded', handleBackButton);
+    // Chiama le funzioni quando il documento è pronto
+    document.addEventListener('DOMContentLoaded', function() {
+        addFakeHistoryEntry();
+        handleBackButton();
+    });
 </script>
+
 
     
 </body>
