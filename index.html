@@ -76,10 +76,15 @@ const index = objectStore.index('nome'); // Usa l'indice per cercare il nome
             requestFind.onsuccess = function(event) {
                 const cursor = event.target.result;
                 if (cursor) {
-                    if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
+                    const storedNome = cursor.value.nome.toLowerCase();
+                    const storedCognome = cursor.value.cognome.toLowerCase();
+                    const inputNome = nome.toLowerCase();
+                    const inputCognome = cognome.toLowerCase();
+               
+                    if (storedNome === inputNome && storedCognome === inputCognome) {
                         userExists = true;
                         alert('Utente già registrato!');
-                    }
+                        }
                     cursor.continue();
                 } else {
                     if (!userExists) {
