@@ -39,21 +39,22 @@
     <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>
 
     <script>
-        // Funzione per reindirizzare alla stessa pagina se si torna indietro
-        function preventBack() {
-            // Sostituisci la voce corrente nella cronologia con una nuova voce
-            history.replaceState(null, '', location.href);
-        }
-
-        // Chiama la funzione preventBack() quando il documento è pronto
-        document.addEventListener('DOMContentLoaded', preventBack);
-
-        // Aggiungi un listener per il caso in cui l'utente naviga indietro
-        window.addEventListener('popstate', function(event) {
-            // Reindirizza alla stessa pagina se l'utente cerca di tornare indietro
-            window.location.href = location.href;
+    // Funzione per gestire il comportamento del tasto indietro
+    function handleBackButton() {
+        // Aggiungi un listener per l'evento pageshow
+        window.addEventListener('pageshow', function(event) {
+            // Controlla se l'evento è stato scatenato dalla navigazione indietro
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                // Reindirizza l'utente alla stessa pagina
+                window.location.reload();
+            }
         });
-    </script>
+    }
+
+    // Chiama la funzione quando il documento è pronto
+    document.addEventListener('DOMContentLoaded', handleBackButton);
+</script>
+
     
 </body>
 </html>
