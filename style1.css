@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: 'HarryP', Arial, sans-serif; /* Applica il font HarryP al corpo della pagina */
+    font-family: Arial, sans-serif; /* Usa Arial come font principale */
     margin: 0;
     padding: 0;
     background-image: url('path/to/your/background-image.jpg'); /* Percorso dell'immagine di sfondo */
