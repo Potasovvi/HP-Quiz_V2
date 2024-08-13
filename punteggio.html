@@ -44,7 +44,7 @@
 
     <script>
         // Apri il database IndexedDB
-        const request = indexedDB.open('PartecipantiDB', 1);
+        const request = indexedDB.open('HPDataBase', 1);
 
         request.onupgradeneeded = function(event) {
             const db = event.target.result;
