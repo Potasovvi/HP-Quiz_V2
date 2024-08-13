@@ -132,8 +132,24 @@
             console.error('Database error:', event.target.errorCode);
         };
 
-        document.getElementById('quizForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+  //      document.getElementById('quizForm').addEventListener('submit', function(event) {
+  //          event.preventDefault();
+
+
+
+document.getElementById('quizForm').addEventListener('submit', function(event) {
+            // Conferma dell'invio del modulo
+            const conferma = confirm("Sei sicuro di voler confermare le risposte? Non potrai più cambiarle.");
+            if (!conferma) {
+                event.preventDefault(); // Annulla l'invio del modulo
+                return;
+            }
+
+            event.preventDefault(); // Impedisce l'invio predefinito del modulo
+
+
+            
+            
 
             let punteggio = 0;
 
