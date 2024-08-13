@@ -165,6 +165,7 @@
 
                     requestUpdate.onsuccess = function() {
                     alert(`Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.`);
+                    document.getElementById('quizForm').reset(); // Reset del modulo    
                     setTimeout(function() {
                         window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html';
                     }, 500); // 500 ms di attesa prima di reindirizzare
