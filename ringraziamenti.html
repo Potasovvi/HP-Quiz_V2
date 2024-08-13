@@ -31,19 +31,30 @@
         p {
             font-size: 1.2em;
         }
+        #home-button, #wizarding-world-button {
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+        }
         #home-button {
-            position: absolute; /* Posizionamento assoluto rispetto al body */
-            bottom: 20px; /* Distanza dal fondo della pagina */
-            background-color: #007bff; /* Colore di sfondo del pulsante */
-            color: white; /* Colore del testo del pulsante */
-            border: none; /* Rimuove il bordo predefinito */
-            padding: 10px 20px; /* Spaziatura interna del pulsante */
-            font-size: 1em; /* Dimensione del testo del pulsante */
-            border-radius: 5px; /* Angoli arrotondati */
-            cursor: pointer; /* Cambia il cursore quando si passa sopra il pulsante */
+            background-color: #007bff; /* Colore di sfondo del pulsante Home */
+            color: white; /* Colore del testo del pulsante Home */
+            bottom: 60px; /* Distanza dal fondo della pagina */
         }
         #home-button:hover {
-            background-color: #0056b3; /* Colore di sfondo quando il mouse è sopra il pulsante */
+            background-color: #0056b3; /* Colore di sfondo quando il mouse è sopra il pulsante Home */
+        }
+        #wizarding-world-button {
+            background-color: #333; /* Colore di sfondo scuro */
+            color: gold; /* Colore del testo dorato */
+            font-size: 2em; /* Dimensione del testo */
+            bottom: 20px; /* Distanza dal fondo della pagina */
+        }
+        #wizarding-world-button:hover {
+            background-color: #444; /* Colore di sfondo quando il mouse è sopra il pulsante Wizarding World */
         }
     </style>
 </head>
@@ -52,5 +63,8 @@
     <p>Vi verrà comunicato poi più tardi il vincitore!</p>
     <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>     
     <button id="home-button" onclick="location.href='https://potasovvi.github.io/HP-Quiz_V2/'">Torna alla home</button>
+    <a href="https://www.wizardingworld.com/" target="_blank">
+        <button id="wizarding-world-button">W</button>
+    </a>
 </body>
 </html>
