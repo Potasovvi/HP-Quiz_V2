@@ -36,6 +36,21 @@
 <body>
     <h1>Grazie per aver partecipato al quiz di Harry Potter!</h1>
     <p>Vi verrà comunicato poi più tardi il vincitore!</p>
-    <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>       
+    <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>  
+
+<script>
+        window.addEventListener('beforeunload', function(event) {
+            const confirmationMessage = 'Are you sure you want to leave?';
+            
+            // Standard way to show a confirmation dialog
+            event.preventDefault(); // For some browsers
+            event.returnValue = confirmationMessage; // For others (most modern browsers)
+            
+            // Optional: alert can be added here but it's not recommended as it might be blocked
+            // alert(confirmationMessage);
+        });
+    </script>
+
+    
 </body>
 </html>
