@@ -48,67 +48,64 @@
             const transaction = db.transaction(['Partecipanti'], 'readwrite');
             const objectStore = transaction.objectStore('Partecipanti');
 
+             const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
 
-            
-            //Rimosso, da aggiungere dopo const objectStore 
-            // const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
+            const request = objectStore.add(newUser);
 
-           // const request = objectStore.add(newUser);
+           request.onsuccess = function() {
+               window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+           };
 
-           // request.onsuccess = function() {
-           //     window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-           // };
-
-           // request.onerror = function(event) {
-           //     console.error('Add error:', event.target.errorCode);
-           // };
+            request.onerror = function(event) {
+                console.error('Add error:', event.target.errorCode);
+            };
 
 
 
 
 
 
-const index = objectStore.index('nome'); // Usa l'indice per cercare il nome
+//const index = objectStore.index('nome'); // Usa l'indice per cercare il nome
 
-            const requestFind = index.openCursor();
-            let userExists = false;
+  //          const requestFind = index.openCursor();
+    //        let userExists = false;
 
-            requestFind.onsuccess = function(event) {
-                const cursor = event.target.result;
-                if (cursor) {
-                    const storedNome = cursor.value.nome.toLowerCase();
-                    const storedCognome = cursor.value.cognome.toLowerCase();
-                    const inputNome = nome.toLowerCase();
-                    const inputCognome = cognome.toLowerCase();
+      //      requestFind.onsuccess = function(event) {
+        //        const cursor = event.target.result;
+          //      if (cursor) {
+            //        const storedNome = cursor.value.nome.toLowerCase();
+              //      const storedCognome = cursor.value.cognome.toLowerCase();
+                //    const inputNome = nome.toLowerCase();
+           //         const inputCognome = cognome.toLowerCase();
                
-                    if (storedNome === inputNome && storedCognome === inputCognome) {
-                        userExists = true;
-                        alert('Utente già registrato!');
-                        }
-                    cursor.continue();
-                } else {
-                    if (!userExists) {
-                        // Solo se l'utente non esiste, aggiungi il nuovo utente e reindirizza
-                        const transactionWrite = db.transaction(['Partecipanti'], 'readwrite');
-                        const objectStoreWrite = transactionWrite.objectStore('Partecipanti');
-                        const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
+            //        if (storedNome === inputNome && storedCognome === inputCognome) {
+             //           userExists = true;
+              //          alert('Utente già registrato!');
+               //         }
+               //     cursor.continue();
+              //  } else {
+              //      if (!userExists) {
+              //          // Solo se l'utente non esiste, aggiungi il nuovo utente e reindirizza
+              //          const transactionWrite = db.transaction(['Partecipanti'], 'readwrite');
+              //          const objectStoreWrite = transactionWrite.objectStore('Partecipanti');
+              //          const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
                         
-                        const requestAdd = objectStoreWrite.add(newUser);
+            //            const requestAdd = objectStoreWrite.add(newUser);
                         
-                        requestAdd.onsuccess = function() {
-                            window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-                        };
+              //          requestAdd.onsuccess = function() {
+              //              window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+              //          };
 
-                        requestAdd.onerror = function(event) {
-                            console.error('Add error:', event.target.errorCode);
-                        };
-                    }
-                }
-            };
+              //          requestAdd.onerror = function(event) {
+              //              console.error('Add error:', event.target.errorCode);
+              //          };
+              //      }
+              //  }
+           // };
 
-            requestFind.onerror = function(event) {
-                console.error('Cursor error:', event.target.errorCode);
-            };
+            //requestFind.onerror = function(event) {
+            //    console.error('Cursor error:', event.target.errorCode);
+            //};
 
 
 
