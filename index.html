@@ -84,15 +84,17 @@ const index = objectStore.index('nome'); // Usa l'indice per cercare il nome
                 } else {
                     if (!userExists) {
                         // Solo se l'utente non esiste, aggiungi il nuovo utente e reindirizza
-                        const transactionWrite = db.transaction(['Partecipanti'], 'readwrite');
-                        const objectStoreWrite = transactionWrite.objectStore('Partecipanti');
                         const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
                         
-                        const requestAdd = objectStoreWrite.add(newUser);
+                        const request = objectStore.add(newUser);
                         
-                        requestAdd.onsuccess = function() {
-                            window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-                        };
+                          request.onsuccess = function() {
+                window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+            };
+
+                         request.onerror = function(event) {
+                console.error('Add error:', event.target.errorCode);
+            };
 
 
 
