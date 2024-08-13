@@ -37,5 +37,23 @@
     <h1>Grazie per aver partecipato al quiz di Harry Potter!</h1>
     <p>Vi verrà comunicato poi più tardi il vincitore!</p>
     <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>
+
+    <script>
+        // Funzione per reindirizzare alla stessa pagina se si torna indietro
+        function preventBack() {
+            // Sostituisci la voce corrente nella cronologia con una nuova voce
+            history.replaceState(null, '', location.href);
+        }
+
+        // Chiama la funzione preventBack() quando il documento è pronto
+        document.addEventListener('DOMContentLoaded', preventBack);
+
+        // Aggiungi un listener per il caso in cui l'utente naviga indietro
+        window.addEventListener('popstate', function(event) {
+            // Reindirizza alla stessa pagina se l'utente cerca di tornare indietro
+            window.location.href = location.href;
+        });
+    </script>
+    
 </body>
 </html>
