@@ -121,7 +121,7 @@
         const nome = urlParams.get('nome');
         const cognome = urlParams.get('cognome');
          
-        const request = indexedDB.open('PartecipantiDB', 1);
+        const request = indexedDB.open('HPDataBase', 1);
         let db;
 
         request.onsuccess = function(event) {
