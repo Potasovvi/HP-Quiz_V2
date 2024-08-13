@@ -31,11 +31,26 @@
         p {
             font-size: 1.2em;
         }
+        #home-button {
+            position: absolute; /* Posizionamento assoluto rispetto al body */
+            bottom: 20px; /* Distanza dal fondo della pagina */
+            background-color: #007bff; /* Colore di sfondo del pulsante */
+            color: white; /* Colore del testo del pulsante */
+            border: none; /* Rimuove il bordo predefinito */
+            padding: 10px 20px; /* Spaziatura interna del pulsante */
+            font-size: 1em; /* Dimensione del testo del pulsante */
+            border-radius: 5px; /* Angoli arrotondati */
+            cursor: pointer; /* Cambia il cursore quando si passa sopra il pulsante */
+        }
+        #home-button:hover {
+            background-color: #0056b3; /* Colore di sfondo quando il mouse è sopra il pulsante */
+        }
     </style>
 </head>
 <body>
     <h1>Grazie per aver partecipato al quiz di Harry Potter!</h1>
     <p>Vi verrà comunicato poi più tardi il vincitore!</p>
-    <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>      
+    <p>PS: se il quiz vi è piaciuto, è grazie allo sposo, in caso contrario è colpa della sposa !!!</p>     
+    <button id="home-button" onclick="location.href='https://potasovvi.github.io/HP-Quiz_V2/'">Torna alla home</button>
 </body>
 </html>
