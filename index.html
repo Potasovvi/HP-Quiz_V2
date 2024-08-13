@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://potasovvi.github.io; style-src 'self' 'unsafe-inline'; script-src 'self';">  -->
     <title>Registrazione</title>
+    <link rel="stylesheet" href="style1.css"> 
 </head>
-  <link rel="stylesheet" href="style1.css"> 
 <body>
   <div class="form-container">
     <h1>Sei pronto a ottenere il tuo G.U.F.O. ? Registrati!</h1>
@@ -18,104 +17,55 @@
         <button type="submit">Salva</button>
     </form>
 </div>
-    <script>
-        const request = indexedDB.open('HPDataBase', 1);
-        let db;
 
-        request.onupgradeneeded = function(event) {
-            db = event.target.result;
-            const objectStore = db.createObjectStore('Partecipanti', { keyPath: 'id', autoIncrement: true });
-            objectStore.createIndex('nome', 'nome', { unique: false });
-            objectStore.createIndex('cognome', 'cognome', { unique: false });
-            objectStore.createIndex('punteggio', 'punteggio', { unique: false });
-            objectStore.createIndex('completato', 'completato', { unique: false }); // Aggiungi l'indice per il flag completato
-        };
+<script type="module">
+  // Importa le funzioni necessarie da Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-        request.onsuccess = function(event) {
-            db = event.target.result;
-        };
+  // Configurazione di Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLwqp44jIZJ-gjonGI3Hbl_lAGe9N4t_Q",
+    authDomain: "hp-quiz-4657.firebaseapp.com",
+    projectId: "hp-quiz-4657",
+    storageBucket: "hp-quiz-4657.appspot.com",
+    messagingSenderId: "66690107707",
+    appId: "1:66690107707:web:0f3fe455c037f2bab28f1e"
+  };
 
-        request.onerror = function(event) {
-            console.error('Database error:', event.target.errorCode);
-        };
+  // Inizializza Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+  // Aggiungi un partecipante
+  document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-            const nome = document.getElementById('nome').value;
-            const cognome = document.getElementById('cognome').value;
+    const nome = document.getElementById('nome').value;
+    const cognome = document.getElementById('cognome').value;
 
-            const transaction = db.transaction(['Partecipanti'], 'readwrite');
-            const objectStore = transaction.objectStore('Partecipanti');
+    // Verifica se l'utente esiste già
+    const q = query(collection(db, 'Partecipanti'), where('nome', '==', nome), where('cognome', '==', cognome));
+    const querySnapshot = await getDocs(q);
 
-             const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
+    if (!querySnapshot.empty) {
+      alert('Utente già registrato!');
+      return;
+    }
 
-            const request = objectStore.add(newUser);
+    // Aggiungi un nuovo partecipante
+    try {
+      await addDoc(collection(db, 'Partecipanti'), {
+        nome: nome,
+        cognome: cognome,
+        punteggio: 0
+      });
+      window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+    } catch (e) {
+      console.error('Errore aggiungendo il partecipante:', e);
+    }
+  });
+</script>
 
-           request.onsuccess = function() {
-               window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-           };
-
-            request.onerror = function(event) {
-                console.error('Add error:', event.target.errorCode);
-            };
-
-
-
-
-
-
-//const index = objectStore.index('nome'); // Usa l'indice per cercare il nome
-
-  //          const requestFind = index.openCursor();
-    //        let userExists = false;
-
-      //      requestFind.onsuccess = function(event) {
-        //        const cursor = event.target.result;
-          //      if (cursor) {
-            //        const storedNome = cursor.value.nome.toLowerCase();
-              //      const storedCognome = cursor.value.cognome.toLowerCase();
-                //    const inputNome = nome.toLowerCase();
-           //         const inputCognome = cognome.toLowerCase();
-               
-            //        if (storedNome === inputNome && storedCognome === inputCognome) {
-             //           userExists = true;
-              //          alert('Utente già registrato!');
-               //         }
-               //     cursor.continue();
-              //  } else {
-              //      if (!userExists) {
-              //          // Solo se l'utente non esiste, aggiungi il nuovo utente e reindirizza
-              //          const transactionWrite = db.transaction(['Partecipanti'], 'readwrite');
-              //          const objectStoreWrite = transactionWrite.objectStore('Partecipanti');
-              //          const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
-                        
-            //            const requestAdd = objectStoreWrite.add(newUser);
-                        
-              //          requestAdd.onsuccess = function() {
-              //              window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-              //          };
-
-              //          requestAdd.onerror = function(event) {
-              //              console.error('Add error:', event.target.errorCode);
-              //          };
-              //      }
-              //  }
-           // };
-
-            //requestFind.onerror = function(event) {
-            //    console.error('Cursor error:', event.target.errorCode);
-            //};
-
-
-
-            
-
-
-
-
-            
-        });
-    </script>
 </body>
 </html>
