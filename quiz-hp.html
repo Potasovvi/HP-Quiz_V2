@@ -120,7 +120,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const nome = urlParams.get('nome');
         const cognome = urlParams.get('cognome');
-
+         
         const request = indexedDB.open('PartecipantiDB', 1);
         let db;
 
@@ -152,10 +152,13 @@
             const objectStore = transaction.objectStore('Partecipanti');
             const index = objectStore.index('nome');
 
+            let userExists = false;
+
             index.openCursor().onsuccess = function(event) {
             const cursor = event.target.result;
             if (cursor) {
                 if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
+                    userExists = true;
                     const updateData = cursor.value;
                     updateData.punteggio = punteggio;
                     const requestUpdate = cursor.update(updateData);
@@ -173,7 +176,12 @@
 
                 return;
                     }
-                    cursor.continue();
+                    
+ if (userExists) { alert('Utente già registrato!');}
+ else            { cursor.continue();}
+     
+
+                
                 }
             };
         });
