@@ -13,103 +13,38 @@
     </form>
 </div>
     <script>
-        const request = indexedDB.open('HPDataBase', 1);
-        let db;
+             document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
 
-        request.onupgradeneeded = function(event) {
-            db = event.target.result;
-            const objectStore = db.createObjectStore('Partecipanti', { keyPath: 'id', autoIncrement: true });
-            objectStore.createIndex('nome', 'nome', { unique: false });
-            objectStore.createIndex('cognome', 'cognome', { unique: false });
-            objectStore.createIndex('punteggio', 'punteggio', { unique: false });
-            objectStore.createIndex('completato', 'completato', { unique: false }); // Aggiungi l'indice per il flag completato
-  };
+            // Funzione per inviare i dati al Google Sheet
+            function inviaDatiAGoogleSheet(data) {
+                fetch('https://script.google.com/macros/s/1FGKCLIhEojaOi46w6h9jmPfmx2AZQz797DkhEO8F1k05-PBZYowPwdKT/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
 
-        request.onsuccess = function(event) {
-            db = event.target.result;
-        };
-
-        request.onerror = function(event) {
-            console.error('Database error:', event.target.errorCode);
-        };
-
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const cognome = document.getElementById('cognome').value;
-
-            const transaction = db.transaction(['Partecipanti'], 'readwrite');
-            const objectStore = transaction.objectStore('Partecipanti');
-
-             const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
-
-            const request = objectStore.add(newUser);
-
-           request.onsuccess = function() {
-      window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-           };
-
-            request.onerror = function(event) {
-                console.error('Add error:', event.target.errorCode);
+            const userData = {
+                nome: nome,
+                cognome: cognome,
+                punteggio: 0,
             };
 
-
-
-
-
-
-//const index = objectStore.index('nome'); // Usa l'indice per cercare il nome
-
-  //          const requestFind = index.openCursor();
-    //        let userExists = false;
-
-      //      requestFind.onsuccess = function(event) {
-        //        const cursor = event.target.result;
-          //      if (cursor) {
-            //        const storedNome = cursor.value.nome.toLowerCase();
-              //      const storedCognome = cursor.value.cognome.toLowerCase();
-                //    const inputNome = nome.toLowerCase();
-           //         const inputCognome = cognome.toLowerCase();
-
-            //        if (storedNome === inputNome && storedCognome === inputCognome) {
-             //           userExists = true;
-              //          alert('Utente già registrato!');
-               //         }
-               //     cursor.continue();
-              //  } else {
-              //      if (!userExists) {
-              //          // Solo se l'utente non esiste, aggiungi il nuovo utente e reindirizza
-              //          const transactionWrite = db.transaction(['Partecipanti'], 'readwrite');
-              //          const objectStoreWrite = transactionWrite.objectStore('Partecipanti');
-              //          const newUser = { nome: nome, cognome: cognome, punteggio: 0 };
-
-            //            const requestAdd = objectStoreWrite.add(newUser);
-
-              //          requestAdd.onsuccess = function() {
-              //              window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-              //          };
-
-              //          requestAdd.onerror = function(event) {
-              //              console.error('Add error:', event.target.errorCode);
-              //          };
-              //      }
-              //  }
-           // };
-
-            //requestFind.onerror = function(event) {
-            //    console.error('Cursor error:', event.target.errorCode);
-            //};
-
-
-
-
-
-
-
-
-
-  });
+            inviaDatiAGoogleSheet(userData);
+        });
 </script>
 </body>
 </html>
