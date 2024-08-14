@@ -1,201 +1,53 @@
-<!DOCTYPE html>
-<html lang="it">
+<!-- index.html -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title>Registrazione</title>
 </head>
-   <!-- <link rel="stylesheet" href="style2.css"> -->
-    <link rel="stylesheet" href="style2.css">
+<link rel="stylesheet" href="style1.css"> 
 <body>
-    <h1>Quiz</h1>
-    <div class="image-container">
-        <img src="Harry_Vold.jpg" alt="Descrizione dell'immagine">
+    <div class="form-container">
+        <h1>Sei pronto a ottenere il tuo G.U.F.O. ? Registrati!</h1>
+        <form id="registrationForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="cognome">Cognome:</label>
+            <input type="text" id="cognome" name="cognome" required>
+            <button type="submit">Salva</button>
+        </form>
     </div>
-    <form id="quizForm">
-        <p>Domanda 1: Qual è il nome del negozio di dolciumi a Diagon Alley?</p>
-        <input type="radio" id="q1a" name="q1" value="A" required>
-        <label for="q1a">Il Paiolo Magico</label><br>
-        <input type="radio" id="q1b" name="q1" value="B">
-        <label for="q1b">Il Ghirigoro</label><br>
-        <input type="radio" id="q1c" name="q1" value="C">
-        <label for="q1c">Mielandia</label><br>
-        <input type="radio" id="q1d" name="q1" value="D">
-        <label for="q1d">Gringott</label><br>
-
-        <p>Domanda 2: Quale incantesimo ha usato Ron per liberare Hermione dalla morsa di un troll nella sua prima avventura a Hogwarts?</p>
-        <input type="radio" id="q2a" name="q2" value="A" required>
-        <label for="q2a">Wingardium Leviosa</label><br>
-        <input type="radio" id="q2b" name="q2" value="B">
-        <label for="q2b">Expelliarmus</label><br>
-        <input type="radio" id="q2c" name="q2" value="C">
-        <label for="q2c">Stupeficium</label><br>
-        <input type="radio" id="q2d" name="q2" value="D">
-        <label for="q2d">Imperio</label><br>
-
-        <p>Domanda 3: Chi ha lasciato a Harry la Mappa del Malandrino nel suo primo anno a Hogwarts?</p>
-        <input type="radio" id="q3a" name="q3" value="A" required>
-        <label for="q3a">Remus Lupin</label><br>
-        <input type="radio" id="q3b" name="q3" value="B">
-        <label for="q3b">I gemelli Weasley</label><br>
-        <input type="radio" id="q3c" name="q3" value="C">
-        <label for="q3c">Albus Silente</label><br>
-        <input type="radio" id="q3d" name="q3" value="D">
-        <label for="q3d">Ron</label><br>
-
-        <p>Domanda 4: In quale luogo si è tenuto il Ballo del Ceppo durante il Torneo Tre Maghi?</p>
-        <input type="radio" id="q4a" name="q4" value="A" required>
-        <label for="q4a">La Sala Grande</label><br>
-        <input type="radio" id="q4b" name="q4" value="B">
-        <label for="q4b">La Foresta Proibita</label><br>
-        <input type="radio" id="q4c" name="q4" value="C">
-        <label for="q4c">La Sala Comune di Grifondoro</label><br>
-        <input type="radio" id="q4d" name="q4" value="D">
-        <label for="q4d">Nel Cortile della Scuola</label><br>
-
-        <p>Domanda 5: Chi è la professoressa Trelawney?</p>
-        <input type="radio" id="q5a" name="q5" value="A" required>
-        <label for="q5a">La Professoressa di Quidditch</label><br>
-        <input type="radio" id="q5b" name="q5" value="B">
-        <label for="q5b">La Professoressa di Erbologia</label><br>
-        <input type="radio" id="q5c" name="q5" value="C">
-        <label for="q5c">La Professoressa di Divinazione</label><br>
-        <input type="radio" id="q5d" name="q5" value="D">
-        <label for="q5d">La Professoressa di Trasfigurazione</label><br>
-
-        <p>Domanda 6: Chi ha creato gli Horcrux?</p>
-        <input type="radio" id="q6a" name="q6" value="A" required>
-        <label for="q6a">Albus Silente</label><br>
-        <input type="radio" id="q6b" name="q6" value="B">
-        <label for="q6b">Lord Voldemort</label><br>
-        <input type="radio" id="q6c" name="q6" value="C">
-        <label for="q6c">Bellatrix Lestrange</label><br>
-        <input type="radio" id="q6d" name="q6" value="D">
-        <label for="q6d">Sirius Black</label><br>
-
-        <p>Domanda 7: Quanti sono i fratelli Weasley?</p>
-        <input type="radio" id="q7a" name="q7" value="A" required>
-        <label for="q7a">Cinque</label><br>
-        <input type="radio" id="q7b" name="q7" value="B">
-        <label for="q7b">Sei</label><br>
-        <input type="radio" id="q7c" name="q7" value="C">
-        <label for="q7c">Sette</label><br>
-        <input type="radio" id="q7d" name="q7" value="D">
-        <label for="q7d">Otto</label><br>
-
-        <p>Domanda 8: Chi ha vinto la coppa del mondo di Quidditch?</p>
-        <input type="radio" id="q8a" name="q8" value="A" required>
-        <label for="q8a">Scozia</label><br>
-        <input type="radio" id="q8b" name="q8" value="B">
-        <label for="q8b">Romania</label><br>
-        <input type="radio" id="q8c" name="q8" value="C">
-        <label for="q8c">Bulgaria</label><br>
-        <input type="radio" id="q8d" name="q8" value="D">
-        <label for="q8d">Irlanda</label><br>
-
-        <p>Domanda 9: Qual è il nucleo della bacchetta di Harry Potter?</p>
-        <input type="radio" id="q9a" name="q9" value="A" required>
-        <label for="q9a">Crine di Unicorno</label><br>
-        <input type="radio" id="q9b" name="q9" value="B">
-        <label for="q9b">Corde del Cuore di Drago</label><br>
-        <input type="radio" id="q9c" name="q9" value="C">
-        <label for="q9c">Piuma di Fenice</label><br>
-        <input type="radio" id="q9d" name="q9" value="D">
-        <label for="q9d">Baffo di Troll</label><br>
-
-        <p>Domanda 10: Quale drago è stato assegnato a Cedric Diggory nella prima prova del Torneo Tre Maghi?</p>
-        <input type="radio" id="q10a" name="q10" value="A" required>
-        <label for="q10a">Grugnocorto Svedese</label><br>
-        <input type="radio" id="q10b" name="q10" value="B">
-        <label for="q10b">Petardo Cinese</label><br>
-        <input type="radio" id="q10c" name="q10" value="C">
-        <label for="q10c">Gallese Verde</label><br>
-         <input type="radio" id="q10d" name="q10" value="D">
-        <label for="q10d">Ungaro Spinato</label><br>
-
-        <button type="submit">Invia</button>
-    </form>
-
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const nome = urlParams.get('nome');
-        const cognome = urlParams.get('cognome');
-         
-        const request = indexedDB.open('HPDataBase', 1);
-        let db;
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
 
-        request.onsuccess = function(event) {
-            db = event.target.result;
-        };
-
-        request.onerror = function(event) {
-            console.error('Database error:', event.target.errorCode);
-        };
-
-  //      document.getElementById('quizForm').addEventListener('submit', function(event) {
-  //          event.preventDefault();
-
-
-
-document.getElementById('quizForm').addEventListener('submit', function(event) {
-            // Conferma dell'invio del modulo
-            const conferma = confirm("Sei sicuro di voler confermare le risposte? Non potrai più cambiarle.");
-            if (!conferma) {
-                event.preventDefault(); // Annulla l'invio del modulo
-                return;
+            // Funzione per inviare i dati al Google Sheet
+            function inviaDatiAGoogleSheet(data) {
+                fetch('https://script.google.com/macros/s/1FGKCLIhEojaOi46w6h9jmPfmx2AZQz797DkhEO8F1k05-PBZYowPwdKT/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = `quiz-hp.html?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
             }
 
-            event.preventDefault(); // Impedisce l'invio predefinito del modulo
-
-
-            
-            
-
-            let punteggio = 0;
-
-            if (document.querySelector('input[name="q1"]:checked').value === 'C') punteggio += 1;
-            if (document.querySelector('input[name="q2"]:checked').value === 'A') punteggio += 1;
-            if (document.querySelector('input[name="q3"]:checked').value === 'B') punteggio += 1;
-            if (document.querySelector('input[name="q4"]:checked').value === 'A') punteggio += 1;
-            if (document.querySelector('input[name="q5"]:checked').value === 'C') punteggio += 1;
-            if (document.querySelector('input[name="q6"]:checked').value === 'B') punteggio += 1;
-            if (document.querySelector('input[name="q7"]:checked').value === 'C') punteggio += 1;
-            if (document.querySelector('input[name="q8"]:checked').value === 'D') punteggio += 1;
-            if (document.querySelector('input[name="q9"]:checked').value === 'C') punteggio += 1;
-            if (document.querySelector('input[name="q10"]:checked').value === 'A') punteggio += 1;
-
-            const transaction = db.transaction(['Partecipanti'], 'readwrite');
-            const objectStore = transaction.objectStore('Partecipanti');
-            const index = objectStore.index('nome');
-
-            let userExists = false;
-
-            index.openCursor().onsuccess = function(event) {
-            const cursor = event.target.result;
-            if (cursor) {
-                if (cursor.value.nome === nome && cursor.value.cognome === cognome) {
-                    userExists = true;
-                    const updateData = cursor.value;
-                    updateData.punteggio = punteggio;
-                    const requestUpdate = cursor.update(updateData);
-
-                    requestUpdate.onsuccess = function() {
-                    alert(`Grazie per aver partecipato! Il tuo punteggio è ${punteggio}.`);
-                    document.getElementById('quizForm').reset(); // Reset del modulo    
-                    setTimeout(function() {
-                        window.location.href = 'https://potasovvi.github.io/HP-Quiz_V2/ringraziamenti.html';
-                    }, 500); // 500 ms di attesa prima di reindirizzare
-                };
-
-                    requestUpdate.onerror = function(event) {
-                    console.error('Update error:', event.target.errorCode);
-                };
-
-                return;
-                    }                    
-       cursor.continue();                    
-                }
+            const userData = {
+                nome: nome,
+                cognome: cognome,
+                punteggio: 0,
             };
+
+            inviaDatiAGoogleSheet(userData);
         });
     </script>
 </body>
