@@ -1,29 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://potasovvi.github.io; style-src 'self' 'unsafe-inline'; script-src 'self';">  -->
     <title>Registrazione</title>
-</head>
     <link rel="stylesheet" href="style1.css"> 
+</head>
 <body>
   <div class="form-container">
     <h1>Sei pronto a ottenere il tuo G.U.F.O. ? Registrati!</h1>
-	<h1>Send DATA</h1>
+    <form id="registration-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome" required>
+        
         <button type="submit">Salva</button>
     </form>
-</div>
-    <script>
-            fetch('https://script.google.com/macros/s/AKfycbwI7Gr3b_eJxZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/exec', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({ nome: 'Mario', cognome: 'Rossi' })
-});
-</script>
+  </div>
+  
+  <script>
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Impedisce il comportamento predefinito del modulo
+
+      // Ottieni i valori dei campi
+      const nome = document.getElementById('nome').value;
+      const cognome = document.getElementById('cognome').value;
+
+      // Invia i dati al Google Apps Script
+      fetch('https://script.google.com/macros/s/AKfycbwI7Gr3b_eJxZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nome: nome, cognome: cognome })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Registrazione avvenuta con successo!');
+      })
+      .catch((error) => {
+        console.error('Errore:', error);
+      });
+    });
+  </script>
 </body>
 </html>
-
-
-
-
