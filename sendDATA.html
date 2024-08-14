@@ -39,6 +39,10 @@
       .then(response => response.json())
       .then(data => {
         alert('Registrazione avvenuta con successo!');
+
+          // Cancella i contenuti dei campi del modulo
+        document.getElementById('nome').value = '';
+        document.getElementById('cognome').value = '';
       })
       .catch((error) => {
         console.error('Errore:', error);
